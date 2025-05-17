@@ -16,7 +16,7 @@ class fantome( context : Context, attrs : AttributeSet) : View( context,attrs) {
     init {
         image = BitmapFactory.decodeResource(getResources(), R.drawable.pacman)
         fantome = Bitmap.createBitmap(image, 10, 455, 61, 61);
-        x = 400
+        x = 10
         y = 600
     }
 

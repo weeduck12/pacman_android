@@ -8,19 +8,23 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 
-class Plateau( context : Context, attrs : AttributeSet) : View( context,attrs) {
-    val Plateau : Bitmap
-    val Plateauaffich : Bitmap
-
-    init {
-        Plateau = BitmapFactory.decodeResource(getResources(), R.drawable.pacmanmap)
-        Plateauaffich = Bitmap.createBitmap(Plateau, 1, 1, 10, 10)
-
+class Plateau(context: Context, attrs: AttributeSet) : View(context, attrs) {
+    private val plateau = BitmapFactory.decodeResource(resources, R.drawable.pacmanmap)
+    private var scaledPlateau: Bitmap? = null
+    
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        scaledPlateau = Bitmap.createScaledBitmap(plateau, width, height, true)
     }
-
+    
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val p = Paint()
-        canvas.drawBitmap(Plateau,-400F,1F,p)
+        scaledPlateau?.let { bitmap ->
+            canvas.drawBitmap(bitmap, 0f, 0f, null)
+        }
+    }
+
+    fun getBitmap(): Bitmap {
+        return scaledPlateau ?: plateau
     }
 }
